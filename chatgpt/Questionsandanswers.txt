@@ -96,7 +96,7 @@ How should I set up classes in java. should they be in same file or different fi
 
 In Java, it is generally recommended to define each class in its own separate file, with the file name matching the class name. This convention makes it easier to locate and maintain the code, and makes it easier to reuse the code in other projects.
 
-In your specific case, where you have a class called Calendar that adds events from the class Event, it would be best to define these classes in separate files. For example, you could create a Calendar.java file that defines the Calendar class, and an Event.java file that defines the Event class.
+In your specific case, where you have a class called Calendar that adds events from the class com.example.kthcalender.calender.Event, it would be best to define these classes in separate files. For example, you could create a Calendar.java file that defines the Calendar class, and an com.example.kthcalender.calender.Event.java file that defines the com.example.kthcalender.calender.Event class.
 
 Here's an example of how the code for each class might look in their respective files:
 
@@ -105,24 +105,24 @@ Calendar.java:
 csharp
 
 public class Calendar {
-    public void addEvent(Event event) {
+    public void addEvent(com.example.kthcalender.calender.Event event) {
         // Implementation code goes here
     }
 }
 
-Event.java:
+com.example.kthcalender.calender.Event.java:
 
 kotlin
 
-public class Event {
-    // Fields and methods for the Event class go here
+public class com.example.kthcalender.calender.Event {
+    // Fields and methods for the com.example.kthcalender.calender.Event class go here
 }
 
-Note that when you need to use the Event class within the Calendar class, you would simply import the Event class at the top of the Calendar.java file:
+Note that when you need to use the com.example.kthcalender.calender.Event class within the Calendar class, you would simply import the com.example.kthcalender.calender.Event class at the top of the Calendar.java file:
 
 arduino
 
-import com.example.Event;
+import com.example.com.example.kthcalender.calender.Event;
 
-This allows you to use the Event class within the Calendar class without having to define it again.
+This allows you to use the com.example.kthcalender.calender.Event class within the Calendar class without having to define it again.
 

@@ -3,6 +3,7 @@ package com.example.kthcalender.calender;
 import java.io.*;
 import java.util.*;
 import java.net.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // The parser takes in a URL ical link and spits out a listoflist of events divided into weeks. It only reads the current year.
@@ -39,8 +40,13 @@ public class ICalParser {
                 if (eventBegin.matcher(line).find()){ // if eventbegin
                     Event newEvent = new Event();
                     while ((line= reader.readLine()) != null && !line.equals("END:VEVENT")){
-                        if (summary.matcher(line).find()){
-                            newEvent.event_name = line.substring(summary.matcher(line).end()); // Everything after match
+                        Matcher sum = summary.matcher(line);
+                        Matcher start = starttime.matcher(line);
+                        Matcher end = endtime.matcher(line);
+                        Matcher descript = description.matcher(line);
+                        Matcher local = location.matcher(line);
+                        if (sum.find()){
+                            newEvent.event_name = line.substring(sum.end()); // Everything after match
                             if (tenta.matcher(line).find()){
                                 newEvent.event_type = "Tenta";
                             }
@@ -57,20 +63,20 @@ public class ICalParser {
                                 newEvent.event_type = "Other";
                             }
                         }
-                        else if (starttime.matcher(line).find()){
-                            String timestring = line.substring(starttime.matcher(line).end()); // YYYYMMDDTHHMMSS(time zone)
+                        else if (start.find()){
+                            String timestring = line.substring(start.end()); // YYYYMMDDTHHMMSS(time zone)
                             newEvent.date = new Date(Integer.parseInt(timestring.substring(0,8))); // YYYYMMDD
                             newEvent.start = Integer.parseInt(timestring.substring(9,13));
                         }
-                        else if (endtime.matcher(line).find()){
-                            String timestring = line.substring(starttime.matcher(line).end());
+                        else if (end.find()){
+                            String timestring = line.substring(end.end());
                             newEvent.end = Integer.parseInt(timestring.substring(9,13));
                         }
-                        else if (description.matcher(line).find()){
-                            newEvent.description = line.substring(description.matcher(line).end());
+                        else if (descript.find()){
+                            newEvent.description = line.substring(descript.end());
                         }
-                        else if (location.matcher(line).find()){
-                            newEvent.location = line.substring(location.matcher(line).end());
+                        else if (local.find()){
+                            newEvent.location = line.substring(local.end());
                         }
                     }
                     List<Event> list = events.computeIfAbsent(newEvent.date, k -> new ArrayList<>());

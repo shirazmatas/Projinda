@@ -1,17 +1,19 @@
 package com.example.kthcalender.calender;
 
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.net.*;
+import java.time.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // The parser takes in a URL ical link and spits out a listoflist of events divided into weeks. It only reads the current year.
 // week 1 becomes slot 1. week 0 is therefore empty.
 public class ICalParser {
-    public static HashMap<Date,List<Event>> parse(URL url) throws IOException {
+    public static HashMap<LocalDate,List<Event>> parse(URL url) throws IOException {
         // Variables
-        HashMap<Date,List<Event>> events = new HashMap<>();
+        HashMap<LocalDate,List<Event>> events = new HashMap<>();
         URLConnection connection = url.openConnection();
         InputStream inputStream = connection.getInputStream();
         int numberEvents=0;
@@ -28,7 +30,7 @@ public class ICalParser {
         Pattern endtime = Pattern.compile("DTEND;VALUE=DATE-TIME:",Pattern.CASE_INSENSITIVE);
         Pattern description = Pattern.compile("DESCRIPTION:", Pattern.CASE_INSENSITIVE);
         Pattern location = Pattern.compile("LOCATION:", Pattern.CASE_INSENSITIVE);
-
+        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
             FileWriter writer = new FileWriter("Calender2.ics"); // writes in this file to save for later use
             String line;
@@ -36,10 +38,11 @@ public class ICalParser {
             //
 
             while ((line = reader.readLine()) != null) {
-                writer.write(line+'\n'); // locally saved
                 if (eventBegin.matcher(line).find()){ // if eventbegin
                     Event newEvent = new Event();
+                    writer.write(line+'\n'); // locally saved
                     while ((line= reader.readLine()) != null && !line.equals("END:VEVENT")){
+                        writer.write(line+'\n'); // locally saved
                         Matcher sum = summary.matcher(line);
                         Matcher start = starttime.matcher(line);
                         Matcher end = endtime.matcher(line);
@@ -65,8 +68,10 @@ public class ICalParser {
                         }
                         else if (start.find()){
                             String timestring = line.substring(start.end()); // YYYYMMDDTHHMMSS(time zone)
-                            newEvent.date = new Date(Integer.parseInt(timestring.substring(0,8))); // YYYYMMDD
+                            newEvent.date = LocalDate.parse(timestring,dateformat); //chatgpt generated format somehow.
                             newEvent.start = Integer.parseInt(timestring.substring(9,13));
+                            System.out.println(newEvent.date);
+                            System.out.println(newEvent.start);
                         }
                         else if (end.find()){
                             String timestring = line.substring(end.end());
@@ -81,6 +86,9 @@ public class ICalParser {
                     }
                     List<Event> list = events.computeIfAbsent(newEvent.date, k -> new ArrayList<>());
                     list.add(newEvent);
+                }
+                else{
+                    writer.write(line+'\n'); // locally saved
                 }
             }
             writer.close();

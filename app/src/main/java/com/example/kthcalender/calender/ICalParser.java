@@ -1,5 +1,7 @@
 package com.example.kthcalender.calender;
 
+import android.os.StrictMode;
+
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -14,6 +16,11 @@ public class ICalParser {
     public static HashMap<LocalDate,List<Event>> parse(URL url) throws IOException {
         // Variables
         HashMap<LocalDate,List<Event>> events = new HashMap<>();
+        //App will crash if we dont run async for internet stuff. Instead we just disable safety
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+
+        //Start network thing
         URLConnection connection = url.openConnection();
         InputStream inputStream = connection.getInputStream();
         int numberEvents=0;

@@ -1,6 +1,10 @@
 package com.example.kthcalender;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.kthcalender.calender.Calender;
 import com.example.kthcalender.calender.CalenderHolder;
@@ -23,17 +27,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Calender cal;
-        String iCalLink = "https://www.kth.se/social/user/274804/icalendar/0acf359d0c48cb356538879820a7982f0310034d";
+        //Calender cal;
+        //String iCalLink = "https://www.kth.se/social/user/274804/icalendar/0acf359d0c48cb356538879820a7982f0310034d";
+        /*
         try {
             cal = new Calender(iCalLink);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         CalenderHolder.setCalendar(cal); // This makes it accesible in other places
+         */
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        /*
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String iCalLink = editText.getText().toString();
+                textView.setText(iCalLink);
+                editText.setVisibility(View.GONE);
+                button.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
+            }
+        });
+        */
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

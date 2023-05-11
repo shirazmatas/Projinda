@@ -30,7 +30,7 @@ public class Todaysevents extends AppCompatActivity {
         setContentView(binding.getRoot());
         Calender sharedCal = CalenderHolder.getCalendar(); // gets cal
 
-        Toast.makeText(sharedCal.getDayEvents(LocalDate.now())); // this must be changed
+        //Toast.makeText(sharedCal.getDayEvents(LocalDate.now())); // this must be changed
 
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);

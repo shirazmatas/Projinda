@@ -47,7 +47,13 @@ public class Todaysevents extends AppCompatActivity {
         dateinfo = (TextView) findViewById(R.id.dateview);
         Calender sharedCal = CalenderHolder.getCalendar(); // gets cal
         eventtext = (TextView) findViewById(R.id.eventsview);
-        eventtext.setText(cal.getDayEvents(date).toString());
+        if (cal.getDayEvents(date)==null){
+            eventtext.setText("No events");
+        }
+        else{
+            eventtext.setText(cal.getDayEvents(date).toString());
+        }
+
         dateinfo.setText(date.toString());
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
@@ -61,7 +67,12 @@ public class Todaysevents extends AppCompatActivity {
                 date = date.minusDays(1);
                 dateinfo.setText(date.toString());
                 eventtext = (TextView) findViewById(R.id.eventsview);
-                eventtext.setText(cal.getDayEvents(date).toString());
+                if (cal.getDayEvents(date)==null){
+                    eventtext.setText("No events");
+                }
+                else{
+                    eventtext.setText(cal.getDayEvents(date).toString());
+                }
             }
         });
         forward.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +80,12 @@ public class Todaysevents extends AppCompatActivity {
                 date = date.plusDays(1);
                 dateinfo.setText(date.toString());
                 eventtext = (TextView) findViewById(R.id.eventsview);
-                eventtext.setText(cal.getDayEvents(date).toString());
+                if (cal.getDayEvents(date)==null){
+                    eventtext.setText("No events");
+                }
+                else{
+                    eventtext.setText(cal.getDayEvents(date).toString());
+                }
             }
         });
     }

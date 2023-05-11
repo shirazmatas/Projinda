@@ -8,6 +8,7 @@ public class DashboardViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
+    // Dashboard will display amount of events coming up
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is dashboard fragment");

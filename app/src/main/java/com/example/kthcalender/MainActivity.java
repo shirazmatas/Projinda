@@ -2,6 +2,8 @@ package com.example.kthcalender;
 
 import android.os.Bundle;
 
+import com.example.kthcalender.calender.Calender;
+import com.example.kthcalender.calender.CalenderHolder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.kthcalender.databinding.ActivityMainBinding;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -19,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Calender cal;
+        String iCalLink = "https://www.kth.se/social/user/274804/icalendar/0acf359d0c48cb356538879820a7982f0310034d";
+        try {
+            cal = new Calender(iCalLink);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        CalenderHolder.setCalendar(cal); // This makes it accesible in other places
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

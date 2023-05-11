@@ -9,9 +9,9 @@
     tools:showIn="@layout/activity_todaysevents">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/eventsview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
-
+        android:maxLines="200"
+        android:text="" />
 </androidx.core.widget.NestedScrollView>

@@ -22,8 +22,8 @@ public class Event {
                 + "Location: " + location + "\n"
                 + "Description: " + description + "\n"
                 + "Date: " + formattedDate + "\n"
-                + "Start Time: " + start + "\n"
-                + "End Time: " + end + "\n";
+                + "Start Time: " + start + " GMT +0"+ "\n"
+                + "End Time: " + end + " GMT +0"+ "\n";
         return str;
     }
 

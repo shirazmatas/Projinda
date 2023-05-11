@@ -28,12 +28,13 @@ public class Todaysevents extends AppCompatActivity {
     public Calender cal;
     TextView eventtext;
     TextView dateinfo;
+    LocalDate date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        LocalDate date =LocalDate.now();
+        date =LocalDate.now();
         //icallink = bundle.getString("icallink");
         icallink = "https://www.kth.se/social/user/274804/icalendar/0acf359d0c48cb356538879820a7982f0310034d";
         try {
@@ -53,10 +54,20 @@ public class Todaysevents extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle(getTitle());
         Button fab = binding.yesterday;
+        Button forward = binding.tomorrow;
         fab.setOnClickListener(new View.OnClickListener() { // yesterday click
             @Override
             public void onClick(View view) {
-                date.minusDays(1);
+                date = date.minusDays(1);
+                dateinfo.setText(date.toString());
+                eventtext = (TextView) findViewById(R.id.eventsview);
+                eventtext.setText(cal.getDayEvents(date).toString());
+            }
+        });
+        forward.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                date = date.plusDays(1);
+                dateinfo.setText(date.toString());
                 eventtext = (TextView) findViewById(R.id.eventsview);
                 eventtext.setText(cal.getDayEvents(date).toString());
             }

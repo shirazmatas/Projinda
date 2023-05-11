@@ -39,7 +39,7 @@ public class ICalParser {
         Pattern location = Pattern.compile("LOCATION:", Pattern.CASE_INSENSITIVE);
         DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"))) {
-            FileWriter writer = new FileWriter("Calender2.ics"); // writes in this file to save for later use
+            //FileWriter writer = new FileWriter("Calender2.ics"); // writes in this file to save for later use
             String line;
             // We can use regex, first we want to find each instance of BEGIN:VEVENT. Then take time and extract from regex [A-Z][A-Z][0-9][0-9] etc
             //
@@ -47,9 +47,9 @@ public class ICalParser {
             while ((line = reader.readLine()) != null) {
                 if (eventBegin.matcher(line).find()){ // if eventbegin
                     Event newEvent = new Event();
-                    writer.write(line+'\n'); // locally saved
+                    //writer.write(line+'\n'); // locally saved
                     while ((line= reader.readLine()) != null && !line.equals("END:VEVENT")){
-                        writer.write(line+'\n'); // locally saved
+                        //writer.write(line+'\n'); // locally saved
                         Matcher sum = summary.matcher(line);
                         Matcher start = starttime.matcher(line);
                         Matcher end = endtime.matcher(line);
@@ -95,10 +95,10 @@ public class ICalParser {
                     list.add(newEvent);
                 }
                 else{
-                    writer.write(line+'\n'); // locally saved
+                    //writer.write(line+'\n'); // locally saved
                 }
             }
-            writer.close();
+            //writer.close();
         }
         return events;
     }

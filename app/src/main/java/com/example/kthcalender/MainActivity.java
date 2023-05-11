@@ -1,5 +1,6 @@
 package com.example.kthcalender;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,8 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    EditText inputText;
+    String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
         CalenderHolder.setCalendar(cal); // This makes it accesible in other places
          */
-
+        inputText = findViewById(R.id.icallink);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         /*
@@ -61,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+    public void goToTodaysEvents(View view){
+        Intent intent = new Intent(this, Todaysevents.class);
+        startActivity(intent);
+        finish();
     }
 
 }

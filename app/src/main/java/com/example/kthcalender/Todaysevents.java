@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kthcalender.databinding.ActivityTodayseventsBinding;
@@ -22,26 +24,41 @@ import java.time.LocalDate;
 public class Todaysevents extends AppCompatActivity {
 
     private ActivityTodayseventsBinding binding;
+    public String icallink;
+    public Calender cal;
+    TextView eventtext;
+    TextView dateinfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        LocalDate date =LocalDate.now();
+        //icallink = bundle.getString("icallink");
+        icallink = "https://www.kth.se/social/user/274804/icalendar/0acf359d0c48cb356538879820a7982f0310034d";
+        try {
+            cal = new Calender(icallink);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         binding = ActivityTodayseventsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        dateinfo = (TextView) findViewById(R.id.dateview);
         Calender sharedCal = CalenderHolder.getCalendar(); // gets cal
-
-        //Toast.makeText(sharedCal.getDayEvents(LocalDate.now())); // this must be changed
-
+        eventtext = (TextView) findViewById(R.id.eventsview);
+        eventtext.setText(cal.getDayEvents(date).toString());
+        dateinfo.setText(date.toString());
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle(getTitle());
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button fab = binding.yesterday;
+        fab.setOnClickListener(new View.OnClickListener() { // yesterday click
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                date.minusDays(1);
+                eventtext = (TextView) findViewById(R.id.eventsview);
+                eventtext.setText(cal.getDayEvents(date).toString());
             }
         });
     }

@@ -96,4 +96,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="_1_day">-1 day</string>
+    <string name="date_placeholder">Date_Placeholder</string>
+    <string name="_2_day">+1 day</string>
 </resources>

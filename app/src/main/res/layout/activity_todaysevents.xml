@@ -32,17 +32,42 @@
                 app:popupTheme="@style/Theme.KTHCalender.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_scrolling" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+
+
+    <TextView
+        android:id="@+id/dateview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:text="@string/date_placeholder"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="center" />
+
+    <Button
+        android:id="@+id/tomorrow"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:text="@string/_2_day"
+        android:textColor="#FFE500"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="end|center" />
+
+    <Button
+        android:id="@+id/yesterday"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:text="@string/_1_day"
+        android:textColor="#FFE500"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="start|center" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
